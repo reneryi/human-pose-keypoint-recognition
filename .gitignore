@@ -1,0 +1,23 @@
+# Python 缓存文件
+__pycache__/
+*.py[cod]
+
+# Conda / 虚拟环境目录
+.venv/
+venv/
+env/
+
+# PyCharm 项目配置
+.idea/
+
+# 运行过程产生的临时输出
+outputs/
+temp/
+*.log
+
+# 大型模型文件和数据文件后续按需单独管理
+*.pt
+*.pth
+*.onnx
+*.mp4
+*.avi
