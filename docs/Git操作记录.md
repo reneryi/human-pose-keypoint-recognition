@@ -381,3 +381,62 @@ git tag -n
 git add PROJECT_PLAN.md docs/Git操作记录.md
 git commit -m "docs: record video release tag"
 ```
+
+## 七、远程仓库推送记录
+
+### 1. 推送前检查
+
+推送前查看工作区状态、提交历史、分支和标签：
+
+```powershell
+git status --short --branch
+git log --oneline --decorate -12
+git remote -v
+git branch -vv
+git tag -n
+```
+
+### 2. 拉取远程更新
+
+为了体现远程同步流程，推送前执行一次远程拉取：
+
+```powershell
+git pull --ff-only origin main
+```
+
+结果显示本地已是最新状态。
+
+### 3. 推送分支
+
+推送 `master` 分支、`feature/video-pose` 分支，并同步更新远程默认 `main` 分支内容：
+
+```powershell
+git push origin master
+git push origin feature/video-pose
+git push origin master:main
+```
+
+### 4. 推送标签
+
+由于远程仓库中原先存在旧的 `v1.0.0` 标签，本项目先删除旧远程标签，再推送新的 `v1.0.0` 和 `v1.0.1` 标签：
+
+```powershell
+git push origin --delete v1.0.0
+git push origin v1.0.0 v1.0.1
+```
+
+### 5. 远程仓库最终可见内容
+
+远程仓库地址：
+
+```text
+https://github.com/reneryi/human-pose-keypoint-recognition
+```
+
+最终远程仓库中可以看到：
+
+1. `master` 分支。
+2. `feature/video-pose` 分支。
+3. `v1.0.0` 标签。
+4. `v1.0.1` 标签。
+5. 完整提交历史。

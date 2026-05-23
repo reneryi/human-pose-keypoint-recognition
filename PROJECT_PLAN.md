@@ -43,9 +43,9 @@
 
 ## 五、远程仓库与交付材料
 
-- □ 推送 `master` 分支到 GitHub。
-- □ 推送 `feature/video-pose` 分支到 GitHub。
-- □ 推送 `v1.0.0` 与 `v1.0.1` 标签到 GitHub。
+- ✔ 推送 `master` 分支到 GitHub。
+- ✔ 推送 `feature/video-pose` 分支到 GitHub。
+- ✔ 推送 `v1.0.0` 与 `v1.0.1` 标签到 GitHub。
 - ✔ 整理 `README.md`。
 - ✔ 整理 `docs/实验报告.md`。
 - ✔ 整理 `docs/Git操作记录.md`。
