@@ -30,8 +30,11 @@ git status
 git log --oneline --decorate -5
 & "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env python -c "import sys; print(sys.version)"
 & "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env pip install opencv-python mediapipe
+& "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env pip install "mediapipe==0.10.14"
 & "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env python -c "import cv2, mediapipe as mp; print(cv2.__version__); print(mp.__version__)"
 ```
+
+说明：首次安装的 `mediapipe==0.10.35` 仅提供新版 `tasks` 接口，不包含本项目使用的 `mp.solutions.pose` 接口，因此降级到兼容版本 `mediapipe==0.10.14`。
 
 ### 2. 图片人体关键点识别版本开发
 

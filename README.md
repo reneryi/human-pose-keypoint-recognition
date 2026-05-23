@@ -228,7 +228,7 @@ pip install -r requirements.txt
 主要依赖包括：
 
 - `opencv-python`
-- `mediapipe`
+- `mediapipe==0.10.14`
 - `numpy`
 - `Pillow`
 
