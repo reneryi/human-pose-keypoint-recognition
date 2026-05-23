@@ -252,3 +252,22 @@ feature/video-pose
 ```
 
 该步骤体现了 `master` 稳定分支与 `feature` 功能分支相互区分的开发流程。
+
+### 2. 新增视频逐帧关键点识别模块
+
+新增文件：
+
+- `pose_video.py`：负责读取视频、逐帧识别人体关键点、绘制骨架并输出新视频。
+
+语法检查命令：
+
+```powershell
+& "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env python -m py_compile pose_video.py
+```
+
+提交命令：
+
+```powershell
+git add pose_video.py PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "feat: add video pose processing module"
+```
