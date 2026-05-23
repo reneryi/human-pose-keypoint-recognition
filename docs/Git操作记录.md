@@ -220,3 +220,15 @@ git commit -m "feat: add image pose estimation interface"
 git add README.md docs/运行说明.md docs/Git操作记录.md docs/实验报告.md PROJECT_PLAN.md
 git commit -m "docs: update usage guide for image release"
 ```
+
+### 4. 发布 v1.0.0 标签
+
+由于远程仓库原先已经存在旧的 `v1.0.0` 标签，本地先删除旧标签，再在新的图片识别版本提交上重新创建标签：
+
+```powershell
+git tag -d v1.0.0
+git tag -a v1.0.0 -m "release: image pose recognition v1.0.0"
+git tag -n
+```
+
+该标签表示图片人体关键点识别版本发布完成。
