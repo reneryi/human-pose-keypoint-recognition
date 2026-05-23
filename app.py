@@ -132,16 +132,16 @@ def render_video_page() -> None:
             f"其中 {result.pose_frames} 帧检测到人体姿态。"
         )
         st.write(f"结果视频已保存到：`{Path(result.output_path).as_posix()}`")
+        st.write(f"结果视频大小：`{result.output_size_bytes / 1024 / 1024:.2f} MB`")
         st.subheader("处理后视频")
         st.video(str(result.output_path))
 
-        with open(result.output_path, "rb") as video_file:
-            st.download_button(
-                "下载结果视频",
-                data=video_file,
-                file_name="video_pose_result.mp4",
-                mime="video/mp4",
-            )
+        st.download_button(
+            "下载结果视频",
+            data=Path(result.output_path).read_bytes(),
+            file_name=Path(result.output_path).name,
+            mime="video/mp4",
+        )
 
 
 def main() -> None:
