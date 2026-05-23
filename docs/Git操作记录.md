@@ -129,3 +129,62 @@ git commit -m "chore: initialize new project structure"
 - `feature/video-pose` 分支创建与视频识别功能开发。
 - 功能分支合并、`v1.0.1` 标签发布。
 - `git pull`、`git push`、分支和标签推送操作。
+
+## 四、任务二：本地仓库建立与文件基本操作记录
+
+### 1. 文件删除操作
+
+旧项目文件通过以下命令统一删除，并形成提交记录：
+
+```powershell
+git rm -r .
+git diff --cached --stat
+git commit -m "chore: clear legacy project files"
+```
+
+该步骤体现了“删除文件并纳入版本管理”的过程。
+
+### 2. 文件新增操作
+
+重新创建项目计划、基础目录、依赖文件和说明文档：
+
+```powershell
+git add PROJECT_PLAN.md
+git commit -m "docs: add project implementation plan"
+
+git add .gitignore README.md requirements.txt docs/.gitkeep assets/.gitkeep outputs/image_result/.gitkeep outputs/video_result/.gitkeep screenshots/.gitkeep
+git commit -m "chore: initialize new project structure"
+```
+
+该步骤体现了“新增文件并提交到本地仓库”的过程。
+
+### 3. 文件修改操作
+
+随着实验推进，`PROJECT_PLAN.md` 与文档文件会持续修改，并通过 `git diff` 查看差异后提交：
+
+```powershell
+git status --short --branch
+git diff
+git add PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "docs: record local repository operations"
+```
+
+### 4. 查看提交历史
+
+使用以下命令查看历史记录：
+
+```powershell
+git log --oneline --decorate -10
+```
+
+当前项目已经形成多次语义清晰的提交，避免了一次性提交全部内容的问题。
+
+### 5. 本阶段提交记录示例
+
+```text
+chore: clear legacy project files
+docs: add project implementation plan
+chore: initialize new project structure
+docs: add git basics and experiment outline
+docs: record local repository operations
+```
