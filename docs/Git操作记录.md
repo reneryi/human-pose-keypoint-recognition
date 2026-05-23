@@ -271,3 +271,20 @@ feature/video-pose
 git add pose_video.py PROJECT_PLAN.md docs/Git操作记录.md
 git commit -m "feat: add video pose processing module"
 ```
+
+### 3. 新增 Streamlit 视频上传与处理界面
+
+在 `app.py` 中新增视频识别页面：
+
+1. 上传视频文件。
+2. 在页面中预览原始视频。
+3. 点击按钮调用 `process_video_pose` 逐帧处理。
+4. 通过进度条显示处理进度。
+5. 在页面中展示处理后视频。
+
+提交命令：
+
+```powershell
+git add app.py PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "feat: add video upload interface"
+```
