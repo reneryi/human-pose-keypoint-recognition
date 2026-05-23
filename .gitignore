@@ -1,0 +1,36 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虚拟环境与环境文件
+.venv/
+venv/
+env/
+.env
+
+# IDE 配置
+.idea/
+.vscode/
+
+# Streamlit 与运行缓存
+.streamlit/secrets.toml
+.pytest_cache/
+
+# 程序输出与临时文件
+outputs/image_result/*
+outputs/video_result/*
+!outputs/image_result/.gitkeep
+!outputs/video_result/.gitkeep
+temp/
+*.log
+
+# 大型模型或数据文件
+*.pt
+*.pth
+*.onnx
+*.avi
+*.mov
+*.mkv
+
+# 保留 mp4 作为可选小型示例视频格式，但实际提交前应控制体积
