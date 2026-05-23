@@ -340,3 +340,22 @@ processed=6, pose_frames=0, size=5902, output=outputs\video_result\test_video_po
 git add PROJECT_PLAN.md docs/Git操作记录.md
 git commit -m "test: verify video pose processing"
 ```
+
+### 6. 合并 feature/video-pose 到 master
+
+视频功能测试通过后，切换回 `master` 分支，并使用非快进合并保留功能分支开发痕迹：
+
+```powershell
+git switch master
+git merge --no-ff feature/video-pose -m "merge: integrate video pose feature"
+git log --oneline --decorate --graph -10
+```
+
+合并后，`master` 分支包含图片识别功能和视频识别功能，满足 `v1.0.1` 发布条件。
+
+提交命令：
+
+```powershell
+git add PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "docs: record video feature merge"
+```

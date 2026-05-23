@@ -38,7 +38,7 @@
 - ✔ 编写 Streamlit 视频上传与处理界面。
 - ✔ 实现结果视频导出功能。
 - ✔ 测试视频识别功能。
-- □ 将 `feature/video-pose` 合并回 `master`。
+- ✔ 将 `feature/video-pose` 合并回 `master`。
 - □ 在 `master` 分支发布 `v1.0.1` 标签。
 
 ## 五、远程仓库与交付材料
