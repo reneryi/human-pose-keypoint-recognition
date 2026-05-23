@@ -125,7 +125,6 @@ git commit -m "chore: initialize new project structure"
 
 ## 三、后续将继续记录的操作
 
-- 图片识别功能开发与 `v1.0.0` 标签发布。
 - `feature/video-pose` 分支创建与视频识别功能开发。
 - 功能分支合并、`v1.0.1` 标签发布。
 - `git pull`、`git push`、分支和标签推送操作。
@@ -187,4 +186,37 @@ docs: add project implementation plan
 chore: initialize new project structure
 docs: add git basics and experiment outline
 docs: record local repository operations
+```
+
+## 五、v1.0.0 图片识别功能开发记录
+
+### 1. 新增图片识别模块和界面
+
+新增文件：
+
+- `pose_image.py`：封装 MediaPipe Pose 图片人体关键点识别逻辑。
+- `app.py`：实现 Streamlit 图片上传、结果显示和结果下载界面。
+
+提交命令：
+
+```powershell
+git add app.py pose_image.py
+git commit -m "feat: add image pose estimation interface"
+```
+
+### 2. 测试图片识别模块
+
+执行语法检查和基础运行测试：
+
+```powershell
+& "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env python -m py_compile app.py pose_image.py
+```
+
+测试结果：代码可以正常编译，图片识别模块可以被调用并生成结果图片。
+
+### 3. 更新运行文档
+
+```powershell
+git add README.md docs/运行说明.md docs/Git操作记录.md docs/实验报告.md PROJECT_PLAN.md
+git commit -m "docs: update usage guide for image release"
 ```
