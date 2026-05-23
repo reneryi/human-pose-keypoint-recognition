@@ -307,3 +307,36 @@ git commit -m "feat: add video upload interface"
 git add pose_video.py app.py PROJECT_PLAN.md docs/Git操作记录.md
 git commit -m "feat: export processed pose video"
 ```
+
+### 5. 测试视频识别功能
+
+为了验证视频人体关键点识别流程可以正常运行，本项目使用 OpenCV 临时生成一个短视频文件，并调用 `process_video_pose` 进行处理。
+
+测试内容包括：
+
+1. `app.py` 与 `pose_video.py` 可以通过 Python 语法检查。
+2. 能够打开输入视频。
+3. 能够逐帧读取并调用 MediaPipe Pose 处理。
+4. 能够导出结果视频到 `outputs/video_result/`。
+5. 导出文件存在且大小大于 0。
+
+执行命令：
+
+```powershell
+& "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env python -m py_compile app.py pose_video.py
+```
+
+测试结果：
+
+```text
+processed=6, pose_frames=0, size=5902, output=outputs\video_result\test_video_pose_1779537788.mp4
+```
+
+说明：测试视频为临时生成的纯色短视频，不包含真实人体，因此 `pose_frames=0` 是合理结果；但程序已完成视频读取、逐帧处理和结果视频导出，说明视频处理主流程测试通过。
+
+提交命令：
+
+```powershell
+git add PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "test: verify video pose processing"
+```
