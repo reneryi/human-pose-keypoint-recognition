@@ -232,3 +232,23 @@ git tag -n
 ```
 
 该标签表示图片人体关键点识别版本发布完成。
+
+## 六、v1.0.1 视频功能分支开发记录
+
+### 1. 从 master 创建功能分支
+
+在 `v1.0.0` 图片识别版本基础上，从 `master` 创建视频功能分支：
+
+```powershell
+git switch master
+git switch -c feature/video-pose
+git status --short --branch
+```
+
+当前开发分支为：
+
+```text
+feature/video-pose
+```
+
+该步骤体现了 `master` 稳定分支与 `feature` 功能分支相互区分的开发流程。

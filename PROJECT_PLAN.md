@@ -33,7 +33,7 @@
 
 ## 四、v1.0.1 视频人体关键点识别
 
-- □ 从 `master` 创建 `feature/video-pose` 分支。
+- ✔ 从 `master` 创建 `feature/video-pose` 分支。
 - □ 编写视频逐帧关键点识别模块。
 - □ 编写 Streamlit 视频上传与处理界面。
 - □ 实现结果视频导出功能。
