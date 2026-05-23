@@ -359,3 +359,25 @@ git log --oneline --decorate --graph -10
 git add PROJECT_PLAN.md docs/Git操作记录.md
 git commit -m "docs: record video feature merge"
 ```
+
+### 7. 发布 v1.0.1 标签
+
+在合并视频功能后的 `master` 分支上创建 `v1.0.1` 标签，表示视频人体关键点识别版本发布完成：
+
+```powershell
+git tag -a v1.0.1 -m "release: video pose recognition v1.0.1"
+git tag -n
+```
+
+`v1.0.1` 版本包含以下能力：
+
+1. 图片人体关键点识别。
+2. 视频上传与逐帧人体关键点识别。
+3. 结果视频导出与下载。
+
+提交命令：
+
+```powershell
+git add PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "docs: record video release tag"
+```
