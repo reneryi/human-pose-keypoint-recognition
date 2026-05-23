@@ -177,3 +177,105 @@ human-pose-keypoint-recognition
 ```bash
 git log --oneline
 ```
+
+## 任务三：软件版本 v1.0.0 开发
+
+### 1. 版本目标
+
+`v1.0.0` 是本项目的第一个可运行软件版本，主要实现图片人体关键点识别功能。该版本使用 MediaPipe Pose 预训练模型，不需要自行训练模型即可完成单张图片中的人体关键点检测。
+
+本版本实现的功能包括：
+
+1. 支持通过命令行指定输入图片。
+2. 支持通过本地文件选择窗口选择图片。
+3. 使用 MediaPipe Pose 识别人体主要关键点。
+4. 使用 OpenCV 在图片上绘制人体关键点和骨架连线。
+5. 将识别结果保存到输出目录。
+6. 对未检测到人体的图片给出友好提示，并保存原图作为结果图。
+
+### 2. 项目结构
+
+任务三阶段新增的主要文件结构如下：
+
+```text
+├── main.py                         # 命令行版图片识别入口
+├── app_image.py                    # 本地图片选择版入口
+├── requirements.txt                # Python 依赖说明
+├── src/
+│   ├── __init__.py
+│   └── image_pose_estimator.py     # 图片人体关键点识别核心逻辑
+├── assets/
+│   ├── input/                      # 示例输入图片目录
+│   └── output/                     # 预留输出资源目录
+└── outputs/                        # 程序默认结果输出目录
+```
+
+### 3. 安装依赖
+
+本项目使用 Conda 环境 `jc_env`。在 Windows PowerShell 中可以执行：
+
+```powershell
+& "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env pip install -r requirements.txt
+```
+
+也可以先激活环境再安装：
+
+```bash
+conda activate jc_env
+pip install -r requirements.txt
+```
+
+主要依赖包括：
+
+- `opencv-python`
+- `mediapipe`
+- `numpy`
+- `Pillow`
+
+### 4. 命令行运行方式
+
+将待识别图片放入 `assets/input/` 目录，例如：
+
+```text
+assets/input/person.jpg
+```
+
+然后执行：
+
+```bash
+python main.py --input assets/input/person.jpg --output outputs/person_result.jpg
+```
+
+如果不指定 `--output` 参数，程序会自动将结果保存到 `outputs/` 目录，例如：
+
+```bash
+python main.py --input assets/input/person.jpg
+```
+
+默认输出文件名类似：
+
+```text
+outputs/person_pose_result.jpg
+```
+
+### 5. 本地文件选择运行方式
+
+如果希望通过图形窗口选择图片，可以执行：
+
+```bash
+python app_image.py
+```
+
+程序会弹出文件选择窗口，选择图片后自动完成识别，并在完成后弹窗提示结果图片保存位置。
+
+### 6. 版本发布说明
+
+当图片人体关键点识别功能测试通过后，在主分支 `main` 上发布版本标签：
+
+```bash
+git tag v1.0.0
+git push origin main
+git push origin v1.0.0
+```
+
+`v1.0.0` 表示本项目第一个稳定版本，即图片人体关键点识别版本。
