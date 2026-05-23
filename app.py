@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from io import BytesIO
 from pathlib import Path
+import tempfile
 
 import cv2
 import numpy as np
@@ -11,6 +12,7 @@ import streamlit as st
 from PIL import Image
 
 from pose_image import estimate_pose_in_image
+from pose_video import process_video_pose
 
 
 APP_TITLE = "人体关键点识别软件"
@@ -84,11 +86,74 @@ def render_image_page() -> None:
         )
 
 
+def render_video_page() -> None:
+    """渲染 v1.0.1 视频识别页面。"""
+
+    st.header("v1.0.1 视频人体关键点识别")
+    st.write("上传一个视频文件，程序会逐帧识别人体关键点并输出绘制骨架后的结果视频。")
+
+    uploaded_video = st.file_uploader(
+        "请选择视频文件",
+        type=["mp4", "avi", "mov", "mkv"],
+        accept_multiple_files=False,
+    )
+
+    if uploaded_video is None:
+        st.info("请先上传一个视频文件。")
+        return
+
+    st.subheader("原始视频")
+    st.video(uploaded_video)
+
+    if st.button("开始识别视频关键点", type="primary"):
+        suffix = Path(uploaded_video.name).suffix or ".mp4"
+
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_file:
+            temp_file.write(uploaded_video.getvalue())
+            temp_input_path = Path(temp_file.name)
+
+        progress_bar = st.progress(0)
+        progress_text = st.empty()
+
+        def update_progress(done: int, total: int) -> None:
+            total = total if total > 0 else done
+            percent = min(done / total, 1.0) if total else 0.0
+            progress_bar.progress(percent)
+            progress_text.write(f"视频处理中：{done}/{total} 帧")
+
+        try:
+            with st.spinner("正在处理视频，请稍候……"):
+                result = process_video_pose(temp_input_path, progress_callback=update_progress)
+        finally:
+            temp_input_path.unlink(missing_ok=True)
+
+        st.success(
+            f"视频处理完成：共处理 {result.processed_frames} 帧，"
+            f"其中 {result.pose_frames} 帧检测到人体姿态。"
+        )
+        st.write(f"结果视频已保存到：`{Path(result.output_path).as_posix()}`")
+        st.write(f"结果视频大小：`{result.output_size_bytes / 1024 / 1024:.2f} MB`")
+        st.subheader("处理后视频")
+        st.video(str(result.output_path))
+
+        st.download_button(
+            "下载结果视频",
+            data=Path(result.output_path).read_bytes(),
+            file_name=Path(result.output_path).name,
+            mime="video/mp4",
+        )
+
+
 def main() -> None:
     st.set_page_config(page_title=APP_TITLE, page_icon="🧍", layout="wide")
     st.title(APP_TITLE)
     st.caption("课程实验项目：基于 Git 与 GitHub 的人体关键点识别软件版本管理实验")
-    render_image_page()
+
+    page = st.sidebar.radio("请选择功能", ["图片关键点识别", "视频关键点识别"])
+    if page == "图片关键点识别":
+        render_image_page()
+    else:
+        render_video_page()
 
 
 if __name__ == "__main__":

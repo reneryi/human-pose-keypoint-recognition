@@ -232,3 +232,111 @@ git tag -n
 ```
 
 该标签表示图片人体关键点识别版本发布完成。
+
+## 六、v1.0.1 视频功能分支开发记录
+
+### 1. 从 master 创建功能分支
+
+在 `v1.0.0` 图片识别版本基础上，从 `master` 创建视频功能分支：
+
+```powershell
+git switch master
+git switch -c feature/video-pose
+git status --short --branch
+```
+
+当前开发分支为：
+
+```text
+feature/video-pose
+```
+
+该步骤体现了 `master` 稳定分支与 `feature` 功能分支相互区分的开发流程。
+
+### 2. 新增视频逐帧关键点识别模块
+
+新增文件：
+
+- `pose_video.py`：负责读取视频、逐帧识别人体关键点、绘制骨架并输出新视频。
+
+语法检查命令：
+
+```powershell
+& "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env python -m py_compile pose_video.py
+```
+
+提交命令：
+
+```powershell
+git add pose_video.py PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "feat: add video pose processing module"
+```
+
+### 3. 新增 Streamlit 视频上传与处理界面
+
+在 `app.py` 中新增视频识别页面：
+
+1. 上传视频文件。
+2. 在页面中预览原始视频。
+3. 点击按钮调用 `process_video_pose` 逐帧处理。
+4. 通过进度条显示处理进度。
+5. 在页面中展示处理后视频。
+
+提交命令：
+
+```powershell
+git add app.py PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "feat: add video upload interface"
+```
+
+### 4. 实现结果视频导出功能
+
+视频处理模块通过 OpenCV `VideoWriter` 将绘制关键点后的帧写入 `outputs/video_result/` 目录，并在处理结束后校验输出文件是否存在且大小大于 0。Streamlit 页面会显示导出路径、文件大小，并提供“下载结果视频”按钮。
+
+关键实现点：
+
+1. 校验视频宽度、高度和帧率，避免生成无效视频。
+2. 使用 `mp4v` 编码导出 `.mp4` 文件。
+3. 使用 `try/finally` 确保 `VideoCapture` 和 `VideoWriter` 正确释放。
+4. 导出完成后检查输出文件大小，保证结果视频不是空文件。
+5. 页面端使用 `Path(result.output_path).read_bytes()` 提供视频下载。
+
+提交命令：
+
+```powershell
+git add pose_video.py app.py PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "feat: export processed pose video"
+```
+
+### 5. 测试视频识别功能
+
+为了验证视频人体关键点识别流程可以正常运行，本项目使用 OpenCV 临时生成一个短视频文件，并调用 `process_video_pose` 进行处理。
+
+测试内容包括：
+
+1. `app.py` 与 `pose_video.py` 可以通过 Python 语法检查。
+2. 能够打开输入视频。
+3. 能够逐帧读取并调用 MediaPipe Pose 处理。
+4. 能够导出结果视频到 `outputs/video_result/`。
+5. 导出文件存在且大小大于 0。
+
+执行命令：
+
+```powershell
+& "C:\Users\reneryi\Miniconda3\condabin\conda.bat" run -n jc_env python -m py_compile app.py pose_video.py
+```
+
+测试结果：
+
+```text
+processed=6, pose_frames=0, size=5902, output=outputs\video_result\test_video_pose_1779537788.mp4
+```
+
+说明：测试视频为临时生成的纯色短视频，不包含真实人体，因此 `pose_frames=0` 是合理结果；但程序已完成视频读取、逐帧处理和结果视频导出，说明视频处理主流程测试通过。
+
+提交命令：
+
+```powershell
+git add PROJECT_PLAN.md docs/Git操作记录.md
+git commit -m "test: verify video pose processing"
+```
